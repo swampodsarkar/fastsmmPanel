@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastSMM - Your #1 SMM Panel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        :root { --primary-color: #3b82f6; --dark-bg: #0f172a; --light-dark-bg: #1e293b; --text-light: #e2e8f0; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--dark-bg); color: var(--text-light); }
+        .hero-section { background: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.9)), url('https://placehold.co/1920x1080/0f172a/e2e8f0?text=Welcome') center/cover; }
+        .service-card { background-color: var(--light-dark-bg); border: 1px solid #334155; transition: all 0.3s ease; }
+        .service-card:hover { transform: translateY(-8px); border-color: var(--primary-color); }
+        .highlight-button { transition: all 0.3s ease; }
+        .highlight-button:hover { transform: translateY(-3px); }
+        .sidebar { background: linear-gradient(180deg, #1e3a8a, #2563eb); }
+        .sidebar a { transition: all 0.2s ease-in-out; border-left: 4px solid transparent; }
+        .sidebar a.active, .sidebar a:hover { background-color: rgba(29, 78, 216, 0.8); border-left-color: var(--text-light); padding-left: 2rem; }
+        .stat-card { background: linear-gradient(135deg, #1e40af, #3b82f6); transition: transform 0.3s ease; }
+        .stat-card:hover { transform: translateY(-5px); }
+        .page-content { display: none; animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .page-content.active { display: block; }
+        .form-input { background-color: #f1f5f9; color: #1f2937; border: 2px solid #cbd5e1; transition: border-color 0.3s, box-shadow 0.3s; }
+        .form-input:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3); }
+        .custom-table th { background-color: #e2e8f0; } .custom-table tbody tr:nth-child(even) { background-color: #f8fafc; } .custom-table tbody tr:hover { background-color: #eef2ff; }
+        .status-badge { padding: 4px 10px; border-radius: 999px; font-size: 0.8rem; font-weight: 600; text-transform: capitalize; }
+        .status-badge-Pending, .status-badge-Processing { background-color: #f59e0b; color: #fff; } .status-badge-in-progress { background-color: #3b82f6; color: #fff; }
+        .status-badge-Completed, .status-badge-Approved { background-color: #10b981; color: #fff; } .status-badge-Rejected { background-color: #ef4444; color: #fff; }
+        .status-badge-Open { background-color: #3b82f6; color: #fff; } .status-badge-Closed { background-color: #6c757d; color: #fff; }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <header class="bg-slate-900/70 backdrop-blur-sm sticky top-0 z-50 border-b border-slate-800">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-white">FastSMM<span class="text-blue-500">BD</span></a>
+            <div class="hidden md:flex space-x-4 items-center">
+                 <div id="guest-menu" class="space-x-2">
+                     <button id="signInBtn" class="bg-slate-700 hover:bg-slate-600 text-white py-2 px-5 rounded-lg transition highlight-button">Sign In</button>
+                     <button id="signUpBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-5 rounded-lg transition highlight-button">Sign Up</button>
+                 </div>
+                 <div id="user-menu" class="hidden items-center space-x-4">
+                     <span id="user-display-name" class="text-white font-medium"></span>
+                     <button id="signOutBtn" class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-5 rounded-lg transition highlight-button">Sign Out</button>
+                 </div>
+            </div>
+        </nav>
+    </header>
+
+    <div id="landing-page">
+        <section class="hero-section text-center py-20 md:py-32 text-white"><div class="container mx-auto px-6"><h1 class="text-4xl md:text-6xl font-extrabold mb-4">Fastest SMM Panel in Bangladesh</h1><p class="text-lg md:text-xl text-slate-300 mb-8 max-w-2xl mx-auto">Boost your social media presence with real followers, likes, and views at the best prices.</p><button id="getStartedBtn" class="highlight-button bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-full shadow-lg text-lg">Get Started</button></div></section>
+        <section class="py-16 bg-slate-900 text-white"><div class="container mx-auto px-6 text-center"><h2 class="text-3xl md:text-4xl font-bold mb-4">Our Premier Services</h2><p class="text-lg text-slate-400 mb-12">Choose from a wide range of social media marketing services.</p><div id="landing-services-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div></div></section>
+        <footer class="bg-slate-800 text-slate-400 py-8"><div class="container mx-auto text-center"><p>&copy; 2024 FastSMMBD. All rights reserved.</p></div></footer>
+    </div>
+
+    <div id="dashboard-page" class="hidden">
+        <div class="flex flex-col md:flex-row h-screen bg-slate-100">
+            <aside class="w-full md:w-64 sidebar text-white flex-shrink-0">
+                <div class="p-6"><h2 class="text-2xl font-semibold">Dashboard</h2></div>
+                <nav id="sidebar-nav" class="mt-6 flex flex-col">
+                    <a href="#new-order" class="page-link py-3 px-6 text-lg active"><i class="fas fa-cart-plus fa-fw mr-3"></i> New order</a>
+                    <a href="#services" class="page-link py-3 px-6 text-lg"><i class="fas fa-list-ul fa-fw mr-3"></i> Services</a>
+                    <a href="#orders" class="page-link py-3 px-6 text-lg"><i class="fas fa-history fa-fw mr-3"></i> Orders</a>
+                    <a href="#add-funds" class="page-link py-3 px-6 text-lg"><i class="fas fa-dollar-sign fa-fw mr-3"></i> Add funds</a>
+                    <a href="#tickets" class="page-link py-3 px-6 text-lg"><i class="fas fa-ticket-alt fa-fw mr-3"></i> Tickets</a>
+                </nav>
+            </aside>
+            <main class="flex-1 overflow-x-hidden overflow-y-auto bg-slate-100 p-6">
+                <div class="container mx-auto">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div class="stat-card text-white p-6 rounded-lg shadow-lg flex items-center"><i class="fas fa-wallet fa-3x mr-4"></i><div><p class="text-lg">Account Balance</p><h3 id="account-balance" class="text-4xl font-bold">$0.00</h3></div></div>
+                        <div class="stat-card text-white p-6 rounded-lg shadow-lg flex items-center"><i class="fas fa-credit-card fa-3x mr-4"></i><div><p class="text-lg">Spent Balance</p><h3 id="spent-balance" class="text-4xl font-bold">$0.00</h3></div></div>
+                    </div>
+                    <div id="new-order-page" class="page-content active"><div class="bg-white p-8 rounded-lg shadow-md text-gray-800"><h2 class="text-2xl font-bold mb-6">Create a New Order</h2><form id="order-form" class="space-y-6"><div><label class="block text-sm font-medium">Service</label><select id="service-select" class="mt-1 block w-full p-3 rounded-md form-input" required></select></div><div><label class="block text-sm font-medium">Link</label><input type="url" id="order-link" placeholder="https://example.com/your-post" class="mt-1 block w-full p-3 rounded-md form-input" required></div><div><label class="block text-sm font-medium">Quantity</label><input type="number" id="order-quantity" placeholder="e.g., 1000" class="mt-1 block w-full p-3 rounded-md form-input" required min="1"></div><div class="bg-slate-100 p-4 rounded-md text-center"><p>Total Charge: <span id="order-charge" class="font-bold text-xl text-blue-600">$0.00</span></p></div><button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-md highlight-button">Place Order</button></form></div></div>
+                    <div id="services-page" class="page-content"><div class="bg-white p-6 rounded-lg shadow-md text-gray-800"><h2 class="text-2xl font-bold mb-4">Our Services</h2><div class="overflow-x-auto"><table class="w-full text-left custom-table"><thead><tr><th class="p-3">ID</th><th class="p-3">Name</th><th class="p-3">Price per 1000</th></tr></thead><tbody id="services-table-body"></tbody></table></div></div></div>
+                    <div id="orders-page" class="page-content"><div class="bg-white p-6 rounded-lg shadow-md text-gray-800"><h2 class="text-2xl font-bold mb-4">Your Orders</h2><div class="overflow-x-auto"><table class="w-full text-left custom-table"><thead><tr><th class="p-3">Date</th><th class="p-3">Service</th><th class="p-3">Link</th><th class="p-3">Charge</th><th class="p-3">Status</th></tr></thead><tbody id="orders-table-body"></tbody></table></div></div></div>
+                    <div id="add-funds-page" class="page-content"><div class="bg-white p-8 rounded-lg shadow-md text-gray-800"><h2 class="text-2xl font-bold mb-6">Add Funds</h2><form id="add-funds-form" class="space-y-6"><div><label class="block text-sm font-medium">Payment Method</label><select id="payment-method" class="mt-1 block w-full p-3 rounded-md form-input"><option>Bkash</option><option>Rocket</option><option>Nagad</option></select></div><p id="payment-number-display" class="mt-2 text-md font-bold hidden">টাকা পাঠান: <span id="payment-number" class="text-blue-600 text-lg"></span></p><div><label class="block text-sm font-medium">Amount (USD)</label><input type="number" id="usd-amount" step="0.01" class="mt-1 block w-full p-3 rounded-md form-input" required></div><div class="bg-slate-100 p-4 rounded-md text-center"><p>You will need to pay: <span id="bdt-amount" class="font-bold text-lg text-blue-600">0 BDT</span></p><p class="text-sm text-gray-500">(Rate: 1 USD = <span id="dollar-rate">...</span> BDT)</p></div><div><label class="block text-sm font-medium">Transaction ID</label><input type="text" id="transaction-id" class="mt-1 block w-full p-3 rounded-md form-input" required></div><button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-md highlight-button">Submit Fund Request</button></form></div></div>
+                    <div id="tickets-page" class="page-content"><div class="bg-white p-8 rounded-lg shadow-md text-gray-800 mb-6"><h2 class="text-2xl font-bold mb-6">Create New Ticket</h2><form id="create-ticket-form" class="space-y-6"><div><label class="block text-sm font-medium">Subject</label><input type="text" id="ticket-subject" class="mt-1 block w-full p-3 rounded-md form-input" required></div><div><label class="block text-sm font-medium">Message</label><textarea id="ticket-message" rows="4" class="mt-1 block w-full p-3 rounded-md form-input" required></textarea></div><button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-md highlight-button">Create Ticket</button></form></div><div class="bg-white p-6 rounded-lg shadow-md text-gray-800"><h2 class="text-2xl font-bold mb-4">Your Tickets</h2><div id="tickets-list" class="space-y-4"></div></div></div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <div id="modal-container"></div>
+    <div id="toast-container" class="fixed bottom-5 right-5 z-[100]"></div>
+    
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getDatabase, ref, set, onValue, push, serverTimestamp, runTransaction, query, orderByChild, equalTo } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js";
+        
+        const firebaseConfig = {
+            apiKey: "AIzaSyCwpylnjqWQLBpgoiStlrE01o95aKP3JSY",
+            authDomain: "chat-2-me-c3213.firebaseapp.com",
+            databaseURL: "https://chat-2-me-c3213-default-rtdb.firebaseio.com",
+            projectId: "chat-2-me-c3213",
+            storageBucket: "chat-2-me-c3213.firebasestorage.app",
+            messagingSenderId: "302872350523",
+            appId: "1:302872350523:web:e2c911cecc259fc532311e"
+        };
+        
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const auth = getAuth(app);
+
+        let allServicesData = {};
+        let dollarRate = 110;
+
+        // --- Utility Functions ---
+        function showModal(content) {
+            const container = document.getElementById('modal-container');
+            container.innerHTML = `<div class="modal fixed w-full h-full top-0 left-0 flex items-center justify-center z-50 bg-slate-900/50 backdrop-blur-sm">${content}</div>`;
+            container.querySelector('.modal').addEventListener('click', (e) => {
+                if (e.target.classList.contains('modal-close') || e.target.classList.contains('modal')) {
+                    container.innerHTML = '';
+                }
+            });
+        }
+
+        function showToast(message, isError = false) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `px-4 py-2 rounded-lg shadow-lg text-white ${isError ? 'bg-red-500' : 'bg-green-500'}`;
+            toast.textContent = message;
+            container.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        // --- Page Navigation ---
+        document.getElementById('sidebar-nav').addEventListener('click', (e) => {
+            e.preventDefault();
+            const link = e.target.closest('a');
+            if (!link) return;
+            document.querySelectorAll('#sidebar-nav a').forEach(a => a.classList.remove('active'));
+            link.classList.add('active');
+            const pageId = link.getAttribute('href').substring(1) + '-page';
+            document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId)?.classList.add('active');
+        });
+
+        // --- Firebase Data Listeners (Public) ---
+        onValue(ref(db, 'services'), (snapshot) => {
+            allServicesData = snapshot.val() || {};
+            const serviceSelect = document.getElementById('service-select');
+            const servicesTableBody = document.getElementById('services-table-body');
+            const landingContainer = document.getElementById('landing-services-container');
+            
+            serviceSelect.innerHTML = '<option value="">Select a service</option>';
+            servicesTableBody.innerHTML = '';
+            landingContainer.innerHTML = '';
+            
+            for(const serviceId in allServicesData) {
+                const service = allServicesData[serviceId];
+                serviceSelect.innerHTML += `<option value="${serviceId}">${service.name} ($${service.price}/1000)</option>`;
+                servicesTableBody.innerHTML += `<tr class="text-gray-700"><td class="p-3">${serviceId}</td><td class="p-3">${service.name}</td><td class="p-3 font-medium">$${parseFloat(service.price).toFixed(3)}</td></tr>`;
+                landingContainer.innerHTML += `<div class="service-card p-6 rounded-lg"><i class="fas fa-thumbs-up text-blue-500 text-3xl mb-4"></i><h3 class="text-xl font-bold mb-2">${service.name}</h3><p class="text-slate-400">Starting at $${parseFloat(service.price).toFixed(3)} per 1000</p></div>`;
+            }
+        });
+        
+        onValue(ref(db, 'settings/dollarRate'), (snapshot) => {
+            dollarRate = snapshot.val() || 110;
+            document.getElementById('dollar-rate').textContent = dollarRate;
+            document.getElementById('usd-amount').dispatchEvent(new Event('input'));
+        });
+
+        // --- Auth State and User Data Listeners ---
+        onAuthStateChanged(auth, user => {
+            if (user) {
+                document.getElementById('dashboard-page').classList.remove('hidden');
+                document.getElementById('landing-page').classList.add('hidden');
+                document.getElementById('guest-menu').classList.add('hidden');
+                document.getElementById('user-menu').classList.remove('hidden');
+                document.getElementById('user-display-name').textContent = user.displayName || user.email;
+
+                // User data listener
+                onValue(ref(db, `users/${user.uid}`), (snapshot) => {
+                    const userData = snapshot.val() || { balance: 0, spent: 0 };
+                    document.getElementById('account-balance').textContent = `$${(userData.balance || 0).toFixed(2)}`;
+                    document.getElementById('spent-balance').textContent = `$${(userData.spent || 0).toFixed(2)}`;
+                });
+
+                // Orders listener
+                const ordersQuery = query(ref(db, 'orders'), orderByChild('userId'), equalTo(user.uid));
+                onValue(ordersQuery, (snapshot) => {
+                    const ordersTableBody = document.getElementById('orders-table-body');
+                    ordersTableBody.innerHTML = '';
+                    const orders = snapshot.val() || {};
+                    const sortedOrders = Object.values(orders).sort((a,b) => b.timestamp - a.timestamp);
+                    sortedOrders.forEach(order => {
+                        ordersTableBody.innerHTML += `<tr class="text-gray-700">
+                            <td class="p-3">${new Date(order.timestamp).toLocaleDateString()}</td>
+                            <td class="p-3">${order.serviceName}</td><td class="p-3">${order.link}</td>
+                            <td class="p-3">$${order.charge.toFixed(2)}</td>
+                            <td class="p-3"><span class="status-badge status-badge-${order.status}">${order.status}</span></td>
+                        </tr>`;
+                    });
+                });
+                
+                // Tickets listener
+                const ticketsQuery = query(ref(db, 'tickets'), orderByChild('userId'), equalTo(user.uid));
+                onValue(ticketsQuery, (snapshot) => {
+                    const ticketsList = document.getElementById('tickets-list');
+                    ticketsList.innerHTML = '';
+                    const tickets = snapshot.val() || {};
+                     const sortedTickets = Object.values(tickets).sort((a,b) => b.createdAt - a.createdAt);
+                    sortedTickets.forEach(ticket => {
+                        ticketsList.innerHTML += `<div class="border p-4 rounded-md bg-slate-50 text-gray-800">
+                            <p class="font-bold">${ticket.subject} <span class="text-sm font-normal text-gray-500 float-right status-badge status-badge-${ticket.status}">${ticket.status}</span></p>
+                            <p class="text-gray-600 mt-2">${Object.values(ticket.replies)[0].message}</p>
+                        </div>`;
+                    });
+                });
+
+            } else {
+                document.getElementById('dashboard-page').classList.add('hidden');
+                document.getElementById('landing-page').classList.remove('hidden');
+                document.getElementById('guest-menu').classList.remove('hidden');
+                document.getElementById('user-menu').classList.add('hidden');
+            }
+        });
+
+        // --- Auth Modals ---
+        function createAuthModal(isSignIn) {
+            const content = `
+                <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded-lg shadow-lg z-50 text-gray-800">
+                    <div class="py-6 px-8"><div class="flex justify-between items-center pb-3"><p class="text-2xl font-bold">${isSignIn ? 'Sign In' : 'Sign Up'}</p><button class="modal-close cursor-pointer text-2xl">&times;</button></div>
+                        <form id="authForm" class="space-y-4 pt-4">
+                            ${!isSignIn ? `<div><label class="block text-sm font-medium">Username</label><input type="text" id="name" class="mt-1 w-full p-3 rounded-md form-input" required></div>` : ''}
+                            <div><label class="block text-sm font-medium">Email</label><input type="email" id="email" class="mt-1 w-full p-3 rounded-md form-input" required></div>
+                            <div><label class="block text-sm font-medium">Password</label><input type="password" id="password" class="mt-1 w-full p-3 rounded-md form-input" required></div>
+                            <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 rounded-md highlight-button">${isSignIn ? 'Sign In' : 'Sign Up'}</button>
+                        </form>
+                        <p class="mt-4 text-center text-sm">${isSignIn ? "Don't have an account?" : 'Already have an account?'} <button id="switchAuth" class="text-blue-600 hover:underline">${isSignIn ? 'Sign Up' : 'Sign In'}</button></p>
+                    </div>
+                </div>`;
+            showModal(content);
+            document.getElementById('switchAuth').addEventListener('click', () => createAuthModal(!isSignIn));
+            document.getElementById('authForm').addEventListener('submit', handleAuthSubmit);
+        }
+        
+        async function handleAuthSubmit(e) {
+            e.preventDefault();
+            const isSignIn = !e.target.querySelector('#name');
+            const email = e.target.querySelector('#email').value;
+            const password = e.target.querySelector('#password').value;
+            try {
+                if (isSignIn) {
+                    await signInWithEmailAndPassword(auth, email, password);
+                } else {
+                    const name = e.target.querySelector('#name').value;
+                    const cred = await createUserWithEmailAndPassword(auth, email, password);
+                    await updateProfile(cred.user, { displayName: name });
+                    await set(ref(db, `users/${cred.user.uid}`), { name, email, balance: 0, spent: 0, createdAt: serverTimestamp() });
+                    await runTransaction(ref(db, 'stats/totalUsers'), (count) => (count || 0) + 1);
+                }
+                showToast(`Successfully ${isSignIn ? 'signed in' : 'signed up'}!`);
+                document.getElementById('modal-container').innerHTML = '';
+            } catch (error) { showToast(error.message, true); }
+        }
+
+        ['signInBtn', 'signUpBtn', 'getStartedBtn'].forEach(id => {
+            document.getElementById(id).addEventListener('click', () => createAuthModal(id === 'signInBtn'));
+        });
+        signOutBtn.addEventListener('click', () => signOut(auth));
+
+        // --- Dashboard Form Handlers ---
+        document.getElementById('service-select').addEventListener('change', updateOrderCharge);
+        document.getElementById('order-quantity').addEventListener('input', updateOrderCharge);
+
+        function updateOrderCharge() {
+            const service = allServicesData[document.getElementById('service-select').value];
+            const quantity = parseFloat(document.getElementById('order-quantity').value) || 0;
+            const charge = service ? (service.price / 1000) * quantity : 0;
+            document.getElementById('order-charge').textContent = `$${charge.toFixed(3)}`;
+        }
+
+        document.getElementById('order-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const user = auth.currentUser; if (!user) return;
+            const serviceId = document.getElementById('service-select').value;
+            const quantity = parseInt(document.getElementById('order-quantity').value);
+            const link = document.getElementById('order-link').value;
+            const service = allServicesData[serviceId];
+            if (!service || !quantity || !link) return showToast('Please fill out all fields.', true);
+            
+            const charge = (service.price / 1000) * quantity;
+            const userRef = ref(db, `users/${user.uid}`);
+            try {
+                await runTransaction(userRef, (userData) => {
+                    if (userData) {
+                        if ((userData.balance || 0) < charge) {
+                            throw new Error("Insufficient funds.");
+                        }
+                        userData.balance -= charge;
+                        userData.spent = (userData.spent || 0) + charge;
+                    }
+                    return userData;
+                });
+                
+                const newOrderRef = push(ref(db, "orders"));
+                await set(newOrderRef, {
+                    userId: user.uid, userEmail: user.email, serviceId, serviceName: service.name,
+                    link, quantity, charge, status: 'Pending', timestamp: serverTimestamp()
+                });
+                await runTransaction(ref(db, 'stats/totalOrders'), (count) => (count || 0) + 1);
+                
+                showToast('Order placed successfully!');
+                e.target.reset();
+            } catch (error) { showToast(error.message, true); }
+        });
+
+        // Add Funds
+        const paymentNumbers = { 'Bkash': '01767882562', 'Rocket': '01767882562', 'Nagad': '01767882562' };
+        document.getElementById('usd-amount').addEventListener('input', (e) => {
+            const usd = parseFloat(e.target.value) || 0;
+            document.getElementById('bdt-amount').textContent = (usd * dollarRate).toFixed(2) + ' BDT';
+        });
+        document.getElementById('payment-method').addEventListener('change', (e) => {
+            const number = paymentNumbers[e.target.value];
+            const display = document.getElementById('payment-number-display');
+            document.getElementById('payment-number').textContent = number;
+            display.classList.toggle('hidden', !number);
+        });
+
+        document.getElementById('add-funds-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const user = auth.currentUser; if (!user) return;
+            const newRequest = {
+                userId: user.uid, userEmail: user.email,
+                method: document.getElementById('payment-method').value,
+                amount: parseFloat(document.getElementById('usd-amount').value),
+                transactionId: document.getElementById('transaction-id').value,
+                status: 'Pending', timestamp: serverTimestamp()
+            };
+            if(!newRequest.amount || !newRequest.transactionId) return showToast("Please fill all fields.", true);
+            await push(ref(db, "fundRequests"), newRequest);
+            showToast('Fund request submitted for review.');
+            e.target.reset();
+        });
+
+        // Create Ticket
+        document.getElementById('create-ticket-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const user = auth.currentUser; if (!user) return;
+            const subject = document.getElementById('ticket-subject').value;
+            const message = document.getElementById('ticket-message').value;
+            if(!subject || !message) return showToast("Please fill all fields.", true);
+
+            const newTicketRef = push(ref(db, "tickets"));
+            const firstReplyRef = push(ref(db, `tickets/${newTicketRef.key}/replies`));
+
+            await set(newTicketRef, {
+                userId: user.uid, userEmail: user.email, subject, status: 'Open', createdAt: serverTimestamp()
+            });
+            await set(firstReplyRef, { sender: 'user', message, timestamp: serverTimestamp() });
+            
+            showToast('Ticket created successfully.');
+            e.target.reset();
+        });
+    </script>
+</body>
+</html>
