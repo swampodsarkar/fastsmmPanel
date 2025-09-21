@@ -4,90 +4,1652 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FastSMM - Your #1 SMM Panel</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
     <style>
-        :root { --primary-color: #3b82f6; --dark-bg: #0f172a; --light-dark-bg: #1e293b; --text-light: #e2e8f0; }
-        body { font-family: 'Inter', sans-serif; background-color: var(--dark-bg); color: var(--text-light); }
-        .hero-section { background: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.9)), url('https://placehold.co/1920x1080/0f172a/e2e8f0?text=Welcome') center/cover; }
-        .service-card { background-color: var(--light-dark-bg); border: 1px solid #334155; transition: all 0.3s ease; }
-        .service-card:hover { transform: translateY(-8px); border-color: var(--primary-color); }
-        .highlight-button { transition: all 0.3s ease; }
-        .highlight-button:hover { transform: translateY(-3px); }
-        .sidebar { background: linear-gradient(180deg, #1e3a8a, #2563eb); }
-        .sidebar a { transition: all 0.2s ease-in-out; border-left: 4px solid transparent; }
-        .sidebar a.active, .sidebar a:hover { background-color: rgba(29, 78, 216, 0.8); border-left-color: var(--text-light); padding-left: 2rem; }
-        .stat-card { background: linear-gradient(135deg, #1e40af, #3b82f6); transition: transform 0.3s ease; }
-        .stat-card:hover { transform: translateY(-5px); }
-        .page-content { display: none; animation: fadeIn 0.5s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .page-content.active { display: block; }
-        .form-input { background-color: #f1f5f9; color: #1f2937; border: 2px solid #cbd5e1; transition: border-color 0.3s, box-shadow 0.3s; }
-        .form-input:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3); }
-        .custom-table th { background-color: #e2e8f0; } .custom-table tbody tr:nth-child(even) { background-color: #f8fafc; } .custom-table tbody tr:hover { background-color: #eef2ff; }
-        .status-badge { padding: 4px 10px; border-radius: 999px; font-size: 0.8rem; font-weight: 600; text-transform: capitalize; }
-        .status-badge-Pending, .status-badge-Processing { background-color: #f59e0b; color: #fff; } .status-badge-in-progress { background-color: #3b82f6; color: #fff; }
-        .status-badge-Completed, .status-badge-Approved { background-color: #10b981; color: #fff; } .status-badge-Rejected { background-color: #ef4444; color: #fff; }
-        .status-badge-Open { background-color: #3b82f6; color: #fff; } .status-badge-Closed { background-color: #6c757d; color: #fff; }
+        :root {
+            --primary-color: #0066ff;
+            --secondary-color: #00d4ff;
+            --dark-bg: #0a0e27;
+            --card-bg: #1a1f3a;
+            --text-light: #e8eaed;
+            --text-muted: #9aa0a6;
+            --border-color: #2d3748;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --error-color: #ef4444;
+            --gradient-primary: linear-gradient(135deg, #0066ff, #00d4ff);
+            --gradient-dark: linear-gradient(135deg, #0a0e27, #1a1f3a);
+            --shadow-primary: 0 10px 30px rgba(0, 102, 255, 0.3);
+            --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        [data-theme="light"] {
+            --primary-color: #0066ff;
+            --secondary-color: #00d4ff;
+            --dark-bg: #ffffff;
+            --card-bg: #f8fafc;
+            --text-light: #1a202c;
+            --text-muted: #4a5568;
+            --border-color: #e2e8f0;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --error-color: #ef4444;
+            --gradient-primary: linear-gradient(135deg, #0066ff, #00d4ff);
+            --gradient-dark: linear-gradient(135deg, #ffffff, #f8fafc);
+            --shadow-primary: 0 10px 30px rgba(0, 102, 255, 0.15);
+            --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.08);
+        }
+
+        [data-theme="bright"] {
+            --primary-color: #ff6b6b;
+            --secondary-color: #4ecdc4;
+            --dark-bg: #fff5f5;
+            --card-bg: #ffffff;
+            --text-light: #2d3748;
+            --text-muted: #718096;
+            --border-color: #fed7d7;
+            --success-color: #48bb78;
+            --warning-color: #ed8936;
+            --error-color: #f56565;
+            --gradient-primary: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            --gradient-dark: linear-gradient(135deg, #fff5f5, #ffffff);
+            --shadow-primary: 0 10px 30px rgba(255, 107, 107, 0.2);
+            --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Smooth animations and transitions */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        /* Smooth theme transitions */
+        body, 
+        .navbar-custom,
+        .sidebar,
+        .service-card,
+        .stat-card,
+        .form-control-custom,
+        .table-custom,
+        .modal-content-custom {
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            position: fixed;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            z-index: 1000;
+            background: var(--gradient-primary);
+            border: none;
+            border-radius: 50px;
+            padding: 15px;
+            box-shadow: var(--shadow-primary);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 15px 40px rgba(0, 102, 255, 0.4);
+        }
+
+        .theme-toggle i {
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .theme-dropdown {
+            position: absolute;
+            top: 0;
+            right: 70px;
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 15px;
+            padding: 0.5rem;
+            min-width: 150px;
+            box-shadow: var(--shadow-card);
+            transform: scale(0);
+            transform-origin: right center;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .theme-dropdown.show {
+            transform: scale(1);
+        }
+
+        .theme-option {
+            display: flex;
+            align-items: center;
+            padding: 0.7rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text-light);
+            text-decoration: none;
+        }
+
+        .theme-option:hover {
+            background: rgba(0, 102, 255, 0.1);
+            color: var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        .theme-option.active {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        /* Enhanced dropdown styling */
+        .dropdown-menu {
+            backdrop-filter: blur(20px);
+            box-shadow: var(--shadow-card);
+        }
+
+        .dropdown-item:hover {
+            background: rgba(0, 102, 255, 0.1) !important;
+            color: var(--primary-color) !important;
+            transform: translateX(5px);
+        }
+
+        .dropdown-item.active {
+            background: var(--gradient-primary) !important;
+            color: white !important;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 4px;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, rgba(10, 14, 39, 0.95), rgba(26, 31, 58, 0.95)),
+                        url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2015&q=80') center/cover;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, transparent 0%, rgba(10, 14, 39, 0.8) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Navbar Improvements */
+        .navbar-custom {
+            background: rgba(10, 14, 39, 0.98) !important;
+            backdrop-filter: blur(25px);
+            border-bottom: 2px solid rgba(0, 102, 255, 0.3);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            padding: 0.5rem 0;
+            min-height: 60px;
+        }
+
+        .navbar-custom.scrolled {
+            background: rgba(10, 14, 39, 0.95) !important;
+            border-bottom-color: var(--primary-color);
+            box-shadow: 0 4px 30px rgba(0, 102, 255, 0.2);
+        }
+
+        .navbar-brand {
+            font-size: 1.6rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            transform: scale(1.05);
+        }
+
+        .navbar-toggler {
+            border: none;
+            padding: 0.25rem 0.5rem;
+            font-size: 1rem;
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: 0 0 0 0.2rem rgba(0, 102, 255, 0.25);
+        }
+
+        .navbar-nav .nav-link {
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin: 0 0.2rem;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: var(--primary-color) !important;
+            transform: translateY(-1px);
+        }
+
+        /* Enhanced Buttons */
+        .btn-primary-custom {
+            background: var(--gradient-primary);
+            border: none;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.85rem;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 15px rgba(0, 102, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary-custom::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-primary-custom:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary-custom:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(0, 102, 255, 0.4);
+        }
+
+        .btn-outline-custom {
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            background: transparent;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-outline-custom::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+            z-index: -1;
+        }
+
+        .btn-outline-custom:hover::before {
+            width: 100%;
+        }
+
+        .btn-outline-custom:hover {
+            color: white;
+            transform: translateY(-2px);
+            border-color: var(--primary-color);
+        }
+
+        /* Enhanced Cards with Better Borders */
+        .service-card {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+            backdrop-filter: blur(10px);
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .service-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(0, 102, 255, 0.05) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 102, 255, 0.15);
+            border-color: var(--primary-color);
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-card:hover::after {
+            opacity: 1;
+        }
+
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--gradient-primary);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            color: white;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-icon::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+            transform: scale(0);
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover .service-icon::before {
+            transform: scale(1);
+        }
+
+        /* Enhanced Stat Cards */
+        .stat-card {
+            background: var(--gradient-primary);
+            border-radius: 20px;
+            padding: 2rem;
+            color: white;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            transition: all 0.4s ease;
+            transform: scale(0);
+        }
+
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.3);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(0, 102, 255, 0.4);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .stat-card:hover::before {
+            transform: scale(1);
+            top: -25%;
+            right: -25%;
+        }
+
+        .stat-card:hover::after {
+            transform: scaleX(1);
+        }
+
+        /* Enhanced Sidebar */
+        .sidebar {
+            background: var(--gradient-dark);
+            min-height: 100vh;
+            border-right: 3px solid var(--border-color);
+            position: relative;
+            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 3px;
+            height: 100%;
+            background: var(--gradient-primary);
+            opacity: 0.7;
+        }
+
+        .sidebar-header {
+            padding: 1.5rem;
+            border-bottom: 2px solid var(--border-color);
+            background: rgba(0, 102, 255, 0.1);
+        }
+
+        .sidebar-nav .nav-link {
+            color: var(--text-light);
+            padding: 1rem 1.5rem;
+            border-radius: 0;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-left: 4px solid transparent;
+            margin: 0.3rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sidebar-nav .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: rgba(0, 102, 255, 0.1);
+            transition: width 0.3s ease;
+            z-index: -1;
+        }
+
+        .sidebar-nav .nav-link:hover::before,
+        .sidebar-nav .nav-link.active::before {
+            width: 100%;
+        }
+
+        .sidebar-nav .nav-link:hover,
+        .sidebar-nav .nav-link.active {
+            background: transparent;
+            border-left-color: var(--primary-color);
+            color: var(--primary-color);
+            transform: translateX(8px);
+            font-weight: 600;
+        }
+
+        .sidebar-nav .nav-link i {
+            width: 20px;
+            margin-right: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-nav .nav-link:hover i,
+        .sidebar-nav .nav-link.active i {
+            transform: scale(1.1);
+        }
+
+        /* Enhanced Forms */
+        .form-control-custom {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-light);
+            padding: 14px 18px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            font-size: 0.95rem;
+        }
+
+        .form-control-custom:focus {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(0, 102, 255, 0.15), 
+                        0 0 20px rgba(0, 102, 255, 0.1);
+            color: var(--text-light);
+            transform: translateY(-2px);
+        }
+
+        .form-control-custom::placeholder {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .form-label-custom {
+            color: var(--text-light);
+            font-weight: 600;
+            margin-bottom: 0.7rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Remove dropdown arrows */
+        .form-select.form-control-custom {
+            background-image: none;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            padding-right: 18px;
+        }
+
+        /* Custom select styling */
+        .custom-select-wrapper {
+            position: relative;
+        }
+
+        .custom-select-wrapper::after {
+            content: '\f107';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-color);
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        .custom-select-wrapper:hover::after {
+            color: var(--secondary-color);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        /* Enhanced Tables */
+        .table-custom {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 2px solid var(--border-color);
+        }
+
+        .table-custom thead th {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 1.2rem;
+            font-size: 0.8rem;
+            position: relative;
+        }
+
+        .table-custom thead th::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .table-custom tbody td {
+            background: var(--card-bg);
+            color: var(--text-light);
+            border-color: rgba(255, 255, 255, 0.1);
+            padding: 1.2rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .table-custom tbody tr {
+            transition: all 0.3s ease;
+        }
+
+        .table-custom tbody tr:hover {
+            background: rgba(0, 102, 255, 0.05) !important;
+            transform: scale(1.01);
+        }
+
+        .table-custom tbody tr:hover td {
+            background: transparent;
+            color: var(--primary-color);
+        }
+
+        /* Status Badges */
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-badge-pending,
+        .status-badge-processing {
+            background: var(--warning-color);
+            color: white;
+        }
+
+        .status-badge-completed,
+        .status-badge-approved {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .status-badge-rejected {
+            background: var(--error-color);
+            color: white;
+        }
+
+        .status-badge-open {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .status-badge-closed {
+            background: #6c757d;
+            color: white;
+        }
+
+        /* Enhanced Modal */
+        .modal-content-custom {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 25px;
+            color: var(--text-light);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-header-custom {
+            border-bottom: 2px solid var(--border-color);
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: 25px 25px 0 0;
+            padding: 1.5rem;
+        }
+
+        .modal-header-custom .modal-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        /* Professional Enhancements */
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .text-shadow {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hover-scale {
+            transition: transform 0.3s ease;
+        }
+
+        .hover-scale:hover {
+            transform: scale(1.05);
+        }
+
+        .border-gradient-animated {
+            position: relative;
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 2px;
+        }
+
+        .border-gradient-animated::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            padding: 2px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--primary-color));
+            border-radius: inherit;
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: xor;
+            animation: borderRotate 3s linear infinite;
+        }
+
+        @keyframes borderRotate {
+            0% {
+                background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--primary-color));
+            }
+            25% {
+                background: linear-gradient(135deg, var(--secondary-color), var(--primary-color), var(--secondary-color));
+            }
+            50% {
+                background: linear-gradient(225deg, var(--primary-color), var(--secondary-color), var(--primary-color));
+            }
+            75% {
+                background: linear-gradient(315deg, var(--secondary-color), var(--primary-color), var(--secondary-color));
+            }
+            100% {
+                background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--primary-color));
+            }
+        }
+
+        .card-hover-effect {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .card-hover-effect:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 0 20px 40px rgba(0, 102, 255, 0.2);
+        }
+
+        /* Page Content with Enhanced Animations */
+        .page-content {
+            display: none;
+            animation: fadeInUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .page-content.active {
+            display: block;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Enhanced Status Badges */
+        .status-badge {
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .status-badge::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: left 0.3s ease;
+        }
+
+        .status-badge:hover::before {
+            left: 100%;
+        }
+
+        .status-badge-pending,
+        .status-badge-processing {
+            background: linear-gradient(135deg, #f59e0b, #fbbf24);
+            color: white;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+        }
+
+        .status-badge-completed,
+        .status-badge-approved {
+            background: linear-gradient(135deg, #10b981, #34d399);
+            color: white;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .status-badge-rejected {
+            background: linear-gradient(135deg, #ef4444, #f87171);
+            color: white;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+        }
+
+        .status-badge-open {
+            background: linear-gradient(135deg, #3b82f6, #60a5fa);
+            color: white;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .status-badge-closed {
+            background: linear-gradient(135deg, #6b7280, #9ca3af);
+            color: white;
+            box-shadow: 0 4px 15px rgba(107, 114, 128, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 4rem 0;
+            }
+            
+            .service-card {
+                margin-bottom: 1.5rem;
+            }
+            
+            .sidebar {
+                min-height: auto;
+            }
+        }
+
+        /* Loading Animation */
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid transparent;
+            border-top: 2px solid currentColor;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Utility Classes */
+        .text-gradient {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .bg-gradient-primary {
+            background: var(--gradient-primary);
+        }
+
+        .shadow-primary {
+            box-shadow: var(--shadow-primary);
+        }
+
+        .border-gradient {
+            border: 2px solid;
+            border-image: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) 1;
+        }
     </style>
 </head>
-<body class="bg-gray-100">
-
-    <header class="bg-slate-900/70 backdrop-blur-sm sticky top-0 z-50 border-b border-slate-800">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold text-white">FastSMM<span class="text-blue-500">BD</span></a>
-            <div class="hidden md:flex space-x-4 items-center">
-                 <div id="guest-menu" class="space-x-2">
-                     <button id="signInBtn" class="bg-slate-700 hover:bg-slate-600 text-white py-2 px-5 rounded-lg transition highlight-button">Sign In</button>
-                     <button id="signUpBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-5 rounded-lg transition highlight-button">Sign Up</button>
-                 </div>
-                 <div id="user-menu" class="hidden items-center space-x-4">
-                     <span id="user-display-name" class="text-white font-medium"></span>
-                     <button id="signOutBtn" class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-5 rounded-lg transition highlight-button">Sign Out</button>
-                 </div>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top" id="mainNavbar">
+        <div class="container">
+            <a class="navbar-brand hover-scale" href="#">
+                <i class="fas fa-rocket me-2"></i>FastSMM<span class="text-info">BD</span>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="navbar-nav ms-auto align-items-center">
+                    <div id="guest-menu" class="d-flex align-items-center gap-2">
+                        <div class="dropdown me-2">
+                            <button class="btn btn-outline-custom dropdown-toggle border-0" type="button" id="guestThemeToggle" data-bs-toggle="dropdown">
+                                <i id="guestThemeIcon" class="fas fa-moon me-1"></i><span id="guestThemeText">Dark</span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" style="background: var(--card-bg); border: 2px solid var(--border-color); border-radius: 15px;">
+                                <li><a class="dropdown-item theme-option" href="#" data-theme="dark" style="color: var(--text-light); transition: all 0.3s ease;">
+                                    <i class="fas fa-moon me-2"></i>Dark Mode
+                                </a></li>
+                                <li><a class="dropdown-item theme-option" href="#" data-theme="light" style="color: var(--text-light); transition: all 0.3s ease;">
+                                    <i class="fas fa-sun me-2"></i>Light Mode
+                                </a></li>
+                                <li><a class="dropdown-item theme-option" href="#" data-theme="bright" style="color: var(--text-light); transition: all 0.3s ease;">
+                                    <i class="fas fa-star me-2"></i>Bright Mode
+                                </a></li>
+                            </ul>
+                        </div>
+                        <button id="signInBtn" class="btn btn-outline-custom">
+                            <i class="fas fa-sign-in-alt me-1"></i>Sign In
+                        </button>
+                        <button id="signUpBtn" class="btn btn-primary-custom">
+                            <i class="fas fa-user-plus me-1"></i>Get Started
+                        </button>
+                    </div>
+                    <div id="user-menu" class="d-none align-items-center gap-3">
+                        <div class="d-flex align-items-center glassmorphism px-3 py-2 rounded-pill">
+                            <i class="fas fa-user-circle me-2 text-primary"></i>
+                            <span id="user-display-name" class="text-light fw-semibold"></span>
+                        </div>
+                        <div class="dropdown">
+                            <button class="btn btn-outline-custom dropdown-toggle border-0" type="button" id="headerThemeToggle" data-bs-toggle="dropdown">
+                                <i id="themeIcon" class="fas fa-moon me-2"></i><span id="themeText">Dark</span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" style="background: var(--card-bg); border: 2px solid var(--border-color); border-radius: 15px;">
+                                <li><a class="dropdown-item theme-option" href="#" data-theme="dark" style="color: var(--text-light); transition: all 0.3s ease;">
+                                    <i class="fas fa-moon me-2"></i>Dark Mode
+                                </a></li>
+                                <li><a class="dropdown-item theme-option" href="#" data-theme="light" style="color: var(--text-light); transition: all 0.3s ease;">
+                                    <i class="fas fa-sun me-2"></i>Light Mode
+                                </a></li>
+                                <li><a class="dropdown-item theme-option" href="#" data-theme="bright" style="color: var(--text-light); transition: all 0.3s ease;">
+                                    <i class="fas fa-star me-2"></i>Bright Mode
+                                </a></li>
+                            </ul>
+                        </div>
+                        <button id="signOutBtn" class="btn btn-outline-danger btn-sm">
+                            <i class="fas fa-sign-out-alt me-1"></i>Sign Out
+                        </button>
+                    </div>
+                </div>
             </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
 
-    <div id="landing-page">
-        <section class="hero-section text-center py-20 md:py-32 text-white"><div class="container mx-auto px-6"><h1 class="text-4xl md:text-6xl font-extrabold mb-4">Fastest SMM Panel in Bangladesh</h1><p class="text-lg md:text-xl text-slate-300 mb-8 max-w-2xl mx-auto">Boost your social media presence with real followers, likes, and views at the best prices.</p><button id="getStartedBtn" class="highlight-button bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-full shadow-lg text-lg">Get Started</button></div></section>
-        <section class="py-16 bg-slate-900 text-white"><div class="container mx-auto px-6 text-center"><h2 class="text-3xl md:text-4xl font-bold mb-4">Our Premier Services</h2><p class="text-lg text-slate-400 mb-12">Choose from a wide range of social media marketing services.</p><div id="landing-services-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div></div></section>
-        <footer class="bg-slate-800 text-slate-400 py-8"><div class="container mx-auto text-center"><p>&copy; 2024 FastSMMBD. All rights reserved.</p></div></footer>
+    <div class="theme-toggle-container" style="display: none;">
+        <button class="theme-toggle" id="themeToggle" style="display: none;">
+            <i class="fas fa-palette"></i>
+        </button>
+        <div class="theme-dropdown" id="themeDropdown" style="display: none;">
+            <div class="theme-option active" data-theme="dark">
+                <i class="fas fa-moon"></i> Dark Mode
+            </div>
+            <div class="theme-option" data-theme="light">
+                <i class="fas fa-sun"></i> Light Mode
+            </div>
+            <div class="theme-option" data-theme="bright">
+                <i class="fas fa-star"></i> Bright Mode
+            </div>
+        </div>
     </div>
 
-    <div id="dashboard-page" class="hidden">
-        <div class="flex flex-col md:flex-row h-screen bg-slate-100">
-            <aside class="w-full md:w-64 sidebar text-white flex-shrink-0">
-                <div class="p-6"><h2 class="text-2xl font-semibold">Dashboard</h2></div>
-                <nav id="sidebar-nav" class="mt-6 flex flex-col">
-                    <a href="#new-order" class="page-link py-3 px-6 text-lg active"><i class="fas fa-cart-plus fa-fw mr-3"></i> New order</a>
-                    <a href="#services" class="page-link py-3 px-6 text-lg"><i class="fas fa-list-ul fa-fw mr-3"></i> Services</a>
-                    <a href="#orders" class="page-link py-3 px-6 text-lg"><i class="fas fa-history fa-fw mr-3"></i> Orders</a>
-                    <a href="#add-funds" class="page-link py-3 px-6 text-lg"><i class="fas fa-dollar-sign fa-fw mr-3"></i> Add funds</a>
-                    <a href="#tickets" class="page-link py-3 px-6 text-lg"><i class="fas fa-ticket-alt fa-fw mr-3"></i> Tickets</a>
-                </nav>
-            </aside>
-            <main class="flex-1 overflow-x-hidden overflow-y-auto bg-slate-100 p-6">
-                <div class="container mx-auto">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                        <div class="stat-card text-white p-6 rounded-lg shadow-lg flex items-center"><i class="fas fa-wallet fa-3x mr-4"></i><div><p class="text-lg">Account Balance</p><h3 id="account-balance" class="text-4xl font-bold">$0.00</h3></div></div>
-                        <div class="stat-card text-white p-6 rounded-lg shadow-lg flex items-center"><i class="fas fa-credit-card fa-3x mr-4"></i><div><p class="text-lg">Spent Balance</p><h3 id="spent-balance" class="text-4xl font-bold">$0.00</h3></div></div>
+    <div id="landing-page">
+        <section class="hero-section d-flex align-items-center">
+            <div class="container">
+                <div class="row justify-content-center text-center">
+                    <div class="col-lg-10 hero-content">
+                        <h1 class="display-2 fw-bold mb-4 text-shadow" data-aos="fade-up" data-aos-delay="100">
+                            World's Fastest <span class="text-gradient">SMM Panel</span> in Bangladesh
+                        </h1>
+                        <p class="lead mb-5 text-muted" data-aos="fade-up" data-aos-delay="200" style="font-size: 1.2rem; max-width: 600px; margin: 0 auto;">
+                            Boost your social media presence with premium followers, likes, views, and engagement at unbeatable prices. 
+                            Join over 50,000+ satisfied customers worldwide and experience lightning-fast delivery.
+                        </p>
+                        <div class="d-flex flex-column flex-md-row gap-3 justify-content-center" data-aos="fade-up" data-aos-delay="300">
+                            <button id="getStartedBtn" class="btn btn-primary-custom btn-lg px-5">
+                                <i class="fas fa-rocket me-2"></i>Start Growing Now
+                            </button>
+                            <button class="btn btn-outline-custom btn-lg px-5">
+                                <i class="fas fa-play me-2"></i>Watch Success Stories
+                            </button>
+                        </div>
+                        
+                        <div class="row mt-5" data-aos="fade-up" data-aos-delay="400">
+                            <div class="col-md-4">
+                                <div class="text-center">
+                                    <h3 class="display-6 fw-bold text-gradient counter" data-target="50000">0</h3>
+                                    <p class="text-muted fw-semibold">Happy Customers</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="text-center">
+                                    <h3 class="display-6 fw-bold text-gradient counter" data-target="1000000">0</h3>
+                                    <p class="text-muted fw-semibold">Orders Completed</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="text-center">
+                                    <h3 class="display-6 fw-bold text-gradient">24/7</h3>
+                                    <p class="text-muted fw-semibold">Expert Support</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div id="new-order-page" class="page-content active"><div class="bg-white p-8 rounded-lg shadow-md text-gray-800"><h2 class="text-2xl font-bold mb-6">Create a New Order</h2><form id="order-form" class="space-y-6"><div><label class="block text-sm font-medium">Service</label><select id="service-select" class="mt-1 block w-full p-3 rounded-md form-input" required></select></div><div><label class="block text-sm font-medium">Link</label><input type="url" id="order-link" placeholder="https://example.com/your-post" class="mt-1 block w-full p-3 rounded-md form-input" required></div><div><label class="block text-sm font-medium">Quantity</label><input type="number" id="order-quantity" placeholder="e.g., 1000" class="mt-1 block w-full p-3 rounded-md form-input" required min="1"></div><div class="bg-slate-100 p-4 rounded-md text-center"><p>Total Charge: <span id="order-charge" class="font-bold text-xl text-blue-600">$0.00</span></p></div><button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-md highlight-button">Place Order</button></form></div></div>
-                    <div id="services-page" class="page-content"><div class="bg-white p-6 rounded-lg shadow-md text-gray-800"><h2 class="text-2xl font-bold mb-4">Our Services</h2><div class="overflow-x-auto"><table class="w-full text-left custom-table"><thead><tr><th class="p-3">ID</th><th class="p-3">Name</th><th class="p-3">Price per 1000</th></tr></thead><tbody id="services-table-body"></tbody></table></div></div></div>
-                    <div id="orders-page" class="page-content"><div class="bg-white p-6 rounded-lg shadow-md text-gray-800"><h2 class="text-2xl font-bold mb-4">Your Orders</h2><div class="overflow-x-auto"><table class="w-full text-left custom-table"><thead><tr><th class="p-3">Date</th><th class="p-3">Service</th><th class="p-3">Link</th><th class="p-3">Charge</th><th class="p-3">Status</th></tr></thead><tbody id="orders-table-body"></tbody></table></div></div></div>
-                    <div id="add-funds-page" class="page-content"><div class="bg-white p-8 rounded-lg shadow-md text-gray-800"><h2 class="text-2xl font-bold mb-6">Add Funds</h2><form id="add-funds-form" class="space-y-6"><div><label class="block text-sm font-medium">Payment Method</label><select id="payment-method" class="mt-1 block w-full p-3 rounded-md form-input"><option>Bkash</option><option>Rocket</option><option>Nagad</option></select></div><p id="payment-number-display" class="mt-2 text-md font-bold hidden">টাকা পাঠান: <span id="payment-number" class="text-blue-600 text-lg"></span></p><div><label class="block text-sm font-medium">Amount (USD)</label><input type="number" id="usd-amount" step="0.01" class="mt-1 block w-full p-3 rounded-md form-input" required></div><div class="bg-slate-100 p-4 rounded-md text-center"><p>You will need to pay: <span id="bdt-amount" class="font-bold text-lg text-blue-600">0 BDT</span></p><p class="text-sm text-gray-500">(Rate: 1 USD = <span id="dollar-rate">...</span> BDT)</p></div><div><label class="block text-sm font-medium">Transaction ID</label><input type="text" id="transaction-id" class="mt-1 block w-full p-3 rounded-md form-input" required></div><button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-md highlight-button">Submit Fund Request</button></form></div></div>
-                    <div id="tickets-page" class="page-content"><div class="bg-white p-8 rounded-lg shadow-md text-gray-800 mb-6"><h2 class="text-2xl font-bold mb-6">Create New Ticket</h2><form id="create-ticket-form" class="space-y-6"><div><label class="block text-sm font-medium">Subject</label><input type="text" id="ticket-subject" class="mt-1 block w-full p-3 rounded-md form-input" required></div><div><label class="block text-sm font-medium">Message</label><textarea id="ticket-message" rows="4" class="mt-1 block w-full p-3 rounded-md form-input" required></textarea></div><button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-md highlight-button">Create Ticket</button></form></div><div class="bg-white p-6 rounded-lg shadow-md text-gray-800"><h2 class="text-2xl font-bold mb-4">Your Tickets</h2><div id="tickets-list" class="space-y-4"></div></div></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-5" style="background: linear-gradient(135deg, #0a0e27, #1a1f3a);">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto text-center mb-5">
+                        <h2 class="display-4 fw-bold mb-4 text-shadow" data-aos="fade-up">
+                            Our <span class="text-gradient">Premium Services</span>
+                        </h2>
+                        <p class="lead text-muted" data-aos="fade-up" data-aos-delay="100" style="font-size: 1.1rem;">
+                            Choose from our comprehensive range of social media marketing services designed to skyrocket your online presence and engagement rates.
+                        </p>
+                    </div>
+                </div>
+                <div id="landing-services-container" class="row g-4"></div>
+            </div>
+        </section>
+
+        <section class="py-5" style="background: var(--dark-bg);">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6" data-aos="fade-right">
+                        <h2 class="display-5 fw-bold mb-4 text-shadow">Why Choose <span class="text-gradient">FastSMMBD</span>?</h2>
+                        <p class="lead text-muted mb-4">We're not just another SMM panel. We're your growth partner committed to delivering exceptional results.</p>
+                        <div class="row g-4">
+                            <div class="col-12">
+                                <div class="d-flex align-items-start">
+                                    <div class="service-icon me-4">
+                                        <i class="fas fa-bolt"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="fw-bold mb-2" style="color: var(--text-light);">Lightning Fast Delivery</h5>
+                                        <p class="text-muted mb-0">Get your orders started within minutes of placement with our automated delivery system.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="d-flex align-items-start">
+                                    <div class="service-icon me-4">
+                                        <i class="fas fa-shield-alt"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="fw-bold mb-2" style="color: var(--text-light);">100% Safe & Secure</h5>
+                                        <p class="text-muted mb-0">Your account safety is our top priority with SSL encryption and secure payment methods.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="d-flex align-items-start">
+                                    <div class="service-icon me-4">
+                                        <i class="fas fa-headset"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="fw-bold mb-2" style="color: var(--text-light);">24/7 Expert Support</h5>
+                                        <p class="text-muted mb-0">Our dedicated support team is always ready to help you achieve your social media goals.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6" data-aos="fade-left">
+                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
+                             alt="Team" class="img-fluid rounded-4 shadow-primary">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="py-5" style="background: var(--card-bg); border-top: 2px solid var(--border-color);">
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-lg-4 mb-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="service-icon me-3" style="width: 50px; height: 50px; font-size: 1.2rem;">
+                                <i class="fas fa-rocket"></i>
+                            </div>
+                            <h5 class="fw-bold mb-0" style="color: var(--text-light);">FastSMM<span class="text-info">BD</span></h5>
+                        </div>
+                        <p class="text-muted mb-4">The most trusted SMM panel in Bangladesh. Boost your social media presence with our premium services and experience the difference.</p>
+                        <div class="d-flex gap-3">
+                            <a href="#" class="text-decoration-none">
+                                <div class="service-icon" style="width: 40px; height: 40px; font-size: 1rem;">
+                                    <i class="fab fa-facebook"></i>
+                                </div>
+                            </a>
+                            <a href="#" class="text-decoration-none">
+                                <div class="service-icon" style="width: 40px; height: 40px; font-size: 1rem; background: linear-gradient(135deg, #1da1f2, #14171a);">
+                                    <i class="fab fa-twitter"></i>
+                                </div>
+                            </a>
+                            <a href="#" class="text-decoration-none">
+                                <div class="service-icon" style="width: 40px; height: 40px; font-size: 1rem; background: linear-gradient(135deg, #e4405f, #fd1d1d);">
+                                    <i class="fab fa-instagram"></i>
+                                </div>
+                            </a>
+                            <a href="#" class="text-decoration-none">
+                                <div class="service-icon" style="width: 40px; height: 40px; font-size: 1rem; background: linear-gradient(135deg, #ff0000, #cc0000);">
+                                    <i class="fab fa-youtube"></i>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-3 col-sm-6 mb-4">
+                        <h6 class="fw-bold mb-3" style="color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px;">Services</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="#" class="text-muted text-decoration-none hover-scale" style="transition: all 0.3s ease;">Instagram Growth</a></li>
+                            <li class="mb-2"><a href="#" class="text-muted text-decoration-none hover-scale" style="transition: all 0.3s ease;">Facebook Marketing</a></li>
+                            <li class="mb-2"><a href="#" class="text-muted text-decoration-none hover-scale" style="transition: all 0.3s ease;">YouTube Promotion</a></li>
+                            <li class="mb-2"><a href="#" class="text-muted text-decoration-none hover-scale" style="transition: all 0.3s ease;">TikTok Boost</a></li>
+                            <li class="mb-2"><a href="#" class="text-muted text-decoration-none hover-scale" style="transition: all 0.3s ease;">Twitter Growth</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-2 col-md-3 col-sm-6 mb-4">
+                        <h6 class="fw-bold mb-3" style="color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px;">Support</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="#" class="text-muted text-decoration-none hover-scale" style="transition: all 0.3s ease;">Help Center</a></li>
+                            <li class="mb-2"><a href="#" class="text-muted text-decoration-none hover-scale" style="transition: all 0.3s ease;">Contact Us</a></li>
+                            <li class="mb-2"><a href="#" class="text-muted text-decoration-none hover-scale" style="transition: all 0.3s ease;">API Documentation</a></li>
+                            <li class="mb-2"><a href="#" class="text-muted text-decoration-none hover-scale" style="transition: all 0.3s ease;">Service Status</a></li>
+                            <li class="mb-2"><a href="#" class="text-muted text-decoration-none hover-scale" style="transition: all 0.3s ease;">Live Chat</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-2 col-md-3 col-sm-6 mb-4">
+                        <h6 class="fw-bold mb-3" style="color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px;">Company</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="#" class="text-muted text-decoration-none hover-scale" style="transition: all 0.3s ease;">About Us</a></li>
+                            <li class="mb-2"><a href="#" class="text-muted text-decoration-none hover-scale" style="transition: all 0.3s ease;">Terms of Service</a></li>
+                            <li class="mb-2"><a href="#" class="text-muted text-decoration-none hover-scale" style="transition: all 0.3s ease;">Privacy Policy</a></li>
+                            <li class="mb-2"><a href="#" class="text-muted text-decoration-none hover-scale" style="transition: all 0.3s ease;">Refund Policy</a></li>
+                            <li class="mb-2"><a href="#" class="text-muted text-decoration-none hover-scale" style="transition: all 0.3s ease;">Blog</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-2 col-md-3 col-sm-6 mb-4">
+                        <h6 class="fw-bold mb-3" style="color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px;">Payment Methods</h6>
+                        <div class="d-flex flex-column gap-3">
+                            <div class="glassmorphism p-2 rounded-3 text-center">
+                                <img src="https://logos-world.net/wp-content/uploads/2022/01/bKash-Logo.png" alt="bKash" class="img-fluid" style="max-width: 60px; height: 30px; object-fit: contain;">
+                            </div>
+                            <div class="glassmorphism p-2 rounded-3 text-center">
+                                <img src="https://seeklogo.com/images/R/rocket-logo-6A20F7BD03-seeklogo.com.png" alt="Rocket" class="img-fluid" style="max-width: 60px; height: 30px; object-fit: contain;">
+                            </div>
+                            <div class="glassmorphism p-2 rounded-3 text-center">
+                                <span class="fw-bold" style="color: var(--text-light); font-size: 0.9rem;">NAGAD</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr class="my-4" style="border-color: var(--border-color); opacity: 0.3;">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <p class="text-muted mb-0">&copy; 2024 FastSMMBD. All rights reserved.</p>
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <p class="text-muted mb-0">Made with <span class="text-danger fs-5">❤</span> in Bangladesh</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <div id="dashboard-page" class="d-none">
+        <div class="d-flex">
+            <nav class="sidebar" style="width: 280px;">
+                <div class="sidebar-header">
+                    <div class="d-flex align-items-center">
+                        <div class="service-icon me-3" style="width: 50px; height: 50px; font-size: 1.2rem;">
+                            <i class="fas fa-tachometer-alt"></i>
+                        </div>
+                        <div>
+                            <h4 class="fw-bold text-white mb-0">Dashboard</h4>
+                            <p class="text-muted small mb-0">Welcome back!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="px-3 mt-4">
+                    <ul class="nav nav-pills flex-column sidebar-nav" id="sidebar-nav">
+                        <li class="nav-item">
+                            <a href="#new-order" class="nav-link page-link active">
+                                <i class="fas fa-cart-plus"></i> New Order
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#services" class="nav-link page-link">
+                                <i class="fas fa-list-ul"></i> Services
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#orders" class="nav-link page-link">
+                                <i class="fas fa-history"></i> Order History
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#add-funds" class="nav-link page-link">
+                                <i class="fas fa-wallet"></i> Add Funds
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#tickets" class="nav-link page-link">
+                                <i class="fas fa-headset"></i> Support Center
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main class="flex-fill" style="background: var(--dark-bg); min-height: 100vh; padding: 2rem;">
+                <div class="container-fluid">
+                    <div class="row g-4 mb-4">
+                        <div class="col-md-6">
+                            <div class="stat-card h-100">
+                                <div class="d-flex align-items-center">
+                                    <div class="me-3">
+                                        <i class="fas fa-wallet fa-3x text-white opacity-75"></i>
+                                    </div>
+                                    <div class="text-white">
+                                        <p class="mb-1 opacity-75">Account Balance</p>
+                                        <h2 id="account-balance" class="display-6 fw-bold mb-0">$0.00</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="stat-card h-100">
+                                <div class="d-flex align-items-center">
+                                    <div class="me-3">
+                                        <i class="fas fa-credit-card fa-3x text-white opacity-75"></i>
+                                    </div>
+                                    <div class="text-white">
+                                        <p class="mb-1 opacity-75">Total Spent</p>
+                                        <h2 id="spent-balance" class="display-6 fw-bold mb-0">$0.00</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="new-order-page" class="page-content active">
+                        <div class="card border-0" style="background: var(--card-bg); border-radius: 20px;">
+                            <div class="card-header border-0 py-4" style="background: var(--gradient-primary); border-radius: 20px 20px 0 0;">
+                                <h3 class="card-title text-white fw-bold mb-0">
+                                    <i class="fas fa-plus-circle me-2"></i>Create New Order
+                                </h3>
+                            </div>
+                            <div class="card-body p-4">
+                                <form id="order-form" class="row g-4">
+                                    <div class="col-12">
+                                        <label class="form-label form-label-custom">
+                                            <i class="fas fa-list me-2"></i>Select Service
+                                        </label>
+                                        <div class="custom-select-wrapper">
+                                            <select id="service-select" class="form-select form-control-custom" required>
+                                                <option value="">Choose a service...</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label form-label-custom">
+                                            <i class="fas fa-link me-2"></i>Target Link
+                                        </label>
+                                        <input type="url" id="order-link" class="form-control form-control-custom" 
+                                               placeholder="https://example.com/your-post" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label form-label-custom">
+                                            <i class="fas fa-hashtag me-2"></i>Quantity
+                                        </label>
+                                        <input type="number" id="order-quantity" class="form-control form-control-custom" 
+                                               placeholder="e.g., 1000" required min="1">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label form-label-custom">Total Charge</label>
+                                        <div class="p-3 rounded-3" style="background: rgba(0, 102, 255, 0.1); border: 2px solid var(--primary-color);">
+                                            <h4 id="order-charge" class="text-gradient fw-bold mb-0">$0.00</h4>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <button type="submit" class="btn btn-primary-custom btn-lg w-100">
+                                            <i class="fas fa-shopping-cart me-2"></i>Place Order
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="services-page" class="page-content">
+                        <div class="card border-0 table-custom">
+                            <div class="card-header border-0 py-4">
+                                <h3 class="card-title text-white fw-bold mb-0">
+                                    <i class="fas fa-cogs me-2"></i>Available Services
+                                </h3>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table table-custom mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>Service ID</th>
+                                                <th>Service Name</th>
+                                                <th>Price per 1000</th>
+                                                <th>Min Order</th>
+                                                <th>Max Order</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="services-table-body">
+                                            </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="orders-page" class="page-content">
+                        <div class="card border-0 table-custom">
+                            <div class="card-header border-0 py-4">
+                                <h3 class="card-title text-white fw-bold mb-0">
+                                    <i class="fas fa-clock me-2"></i>Order History
+                                </h3>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table table-custom mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Service</th>
+                                                <th>Link</th>
+                                                <th>Quantity</th>
+                                                <th>Charge</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="orders-table-body">
+                                            </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="add-funds-page" class="page-content">
+                        <div class="card border-0" style="background: var(--card-bg); border-radius: 20px;">
+                            <div class="card-header border-0 py-4" style="background: var(--gradient-primary); border-radius: 20px 20px 0 0;">
+                                <h3 class="card-title text-white fw-bold mb-0">
+                                    <i class="fas fa-plus-circle me-2"></i>Add Funds to Account
+                                </h3>
+                            </div>
+                            <div class="card-body p-4">
+                                <form id="add-funds-form" class="row g-4">
+                                    <div class="col-md-6">
+                                        <label class="form-label form-label-custom">
+                                            <i class="fas fa-mobile-alt me-2"></i>Payment Method
+                                        </label>
+                                        <div class="custom-select-wrapper">
+                                            <select id="payment-method" class="form-select form-control-custom">
+                                                <option value="Bkash">bKash</option>
+                                                <option value="Rocket">Rocket</option>
+                                                <option value="Nagad">Nagad</option>
+                                            </select>
+                                        </div>
+                                        <div id="payment-number-display" class="mt-3 p-3 rounded-3 d-none" style="background: rgba(0, 200, 0, 0.1); border: 2px solid #10b981;">
+                                            <p class="text-success fw-bold mb-1">Send money to:</p>
+                                            <h5 id="payment-number" class="text-success fw-bold mb-0"></h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label form-label-custom">
+                                            <i class="fas fa-dollar-sign me-2"></i>Amount (USD)
+                                        </label>
+                                        <input type="number" id="usd-amount" class="form-control form-control-custom" 
+                                               step="0.01" min="1" placeholder="Enter amount" required>
+                                        <div class="mt-3 p-3 rounded-3" style="background: rgba(0, 102, 255, 0.1); border: 2px solid var(--primary-color);">
+                                            <p class="text-info mb-1">You need to pay:</p>
+                                            <h5 id="bdt-amount" class="text-gradient fw-bold mb-1">0 BDT</h5>
+                                            <small class="text-muted">Rate: 1 USD = <span id="dollar-rate">110</span> BDT</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label form-label-custom">
+                                            <i class="fas fa-receipt me-2"></i>Transaction ID
+                                        </label>
+                                        <input type="text" id="transaction-id" class="form-control form-control-custom" 
+                                               placeholder="Enter your transaction ID" required>
+                                    </div>
+                                    <div class="col-12">
+                                        <button type="submit" class="btn btn-primary-custom btn-lg w-100">
+                                            <i class="fas fa-paper-plane me-2"></i>Submit Fund Request
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="tickets-page" class="page-content">
+                        <div class="row g-4">
+                            <div class="col-lg-6">
+                                <div class="card border-0" style="background: var(--card-bg); border-radius: 20px;">
+                                    <div class="card-header border-0 py-4" style="background: var(--gradient-primary); border-radius: 20px 20px 0 0;">
+                                        <h4 class="card-title text-white fw-bold mb-0">
+                                            <i class="fas fa-plus me-2"></i>Create New Ticket
+                                        </h4>
+                                    </div>
+                                    <div class="card-body p-4">
+                                        <form id="create-ticket-form" class="row g-3">
+                                            <div class="col-12">
+                                                <label class="form-label form-label-custom">
+                                                    <i class="fas fa-tag me-2"></i>Subject
+                                                </label>
+                                                <input type="text" id="ticket-subject" class="form-control form-control-custom" 
+                                                       placeholder="Brief description of your issue" required>
+                                            </div>
+                                            <div class="col-12">
+                                                <label class="form-label form-label-custom">
+                                                    <i class="fas fa-comment me-2"></i>Message
+                                                </label>
+                                                <textarea id="ticket-message" class="form-control form-control-custom" 
+                                                          rows="4" placeholder="Describe your issue in detail..." required></textarea>
+                                            </div>
+                                            <div class="col-12">
+                                                <button type="submit" class="btn btn-primary-custom w-100">
+                                                    <i class="fas fa-ticket-alt me-2"></i>Create Ticket
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-6">
+                                <div class="card border-0" style="background: var(--card-bg); border-radius: 20px;">
+                                    <div class="card-header border-0 py-4" style="background: var(--gradient-primary); border-radius: 20px 20px 0 0;">
+                                        <h4 class="card-title text-white fw-bold mb-0">
+                                            <i class="fas fa-list me-2"></i>Your Tickets
+                                        </h4>
+                                    </div>
+                                    <div class="card-body p-4">
+                                        <div id="tickets-list" class="d-flex flex-column gap-3">
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </main>
         </div>
     </div>
 
     <div id="modal-container"></div>
-    <div id="toast-container" class="fixed bottom-5 right-5 z-[100]"></div>
+    <div id="toast-container" class="position-fixed bottom-0 end-0 p-3" style="z-index: 1200;"></div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     
     <script type="module">
+        // Add navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('mainNavbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Theme System
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        let currentTheme = savedTheme;
+        
+        // Apply theme on load
+        setTheme(currentTheme);
+        updateThemeUI(currentTheme);
+        
+        // Theme selection for both guest and user menus
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.theme-option')) {
+                e.preventDefault();
+                const theme = e.target.closest('.theme-option').getAttribute('data-theme');
+                currentTheme = theme;
+                setTheme(theme);
+                localStorage.setItem('theme', theme);
+                updateThemeUI(theme);
+                
+                // Show theme change notification
+                const themeNames = {
+                    'dark': 'Dark Mode',
+                    'light': 'Light Mode', 
+                    'bright': 'Bright Mode'
+                };
+                showToast(`Switched to ${themeNames[theme]}!`);
+            }
+        });
+        
+        function setTheme(theme) {
+            // Remove existing theme attributes
+            document.documentElement.removeAttribute('data-theme');
+            document.body.classList.remove('light-theme', 'dark-theme', 'bright-theme');
+            
+            // Apply new theme
+            if (theme !== 'dark') {
+                document.documentElement.setAttribute('data-theme', theme);
+            }
+            document.body.classList.add(theme + '-theme');
+        }
+        
+        function updateThemeUI(activeTheme) {
+            // Update theme icons and text
+            const themes = {
+                'dark': { icon: 'fa-moon', text: 'Dark' },
+                'light': { icon: 'fa-sun', text: 'Light' },
+                'bright': { icon: 'fa-star', text: 'Bright' }
+            };
+            
+            const currentThemeData = themes[activeTheme];
+            
+            // Update header theme toggles
+            const headerIcon = document.getElementById('themeIcon');
+            const headerText = document.getElementById('themeText');
+            const guestIcon = document.getElementById('guestThemeIcon');
+            const guestText = document.getElementById('guestThemeText');
+            
+            if (headerIcon && headerText) {
+                headerIcon.className = `fas ${currentThemeData.icon} me-2`;
+                headerText.textContent = currentThemeData.text;
+            }
+            
+            if (guestIcon && guestText) {
+                guestIcon.className = `fas ${currentThemeData.icon} me-1`;
+                guestText.textContent = currentThemeData.text;
+            }
+            
+            // Update active state in dropdowns
+            document.querySelectorAll('.theme-option').forEach(option => {
+                option.classList.remove('active');
+                if (option.getAttribute('data-theme') === activeTheme) {
+                    option.classList.add('active');
+                }
+            });
+        }
+        
+        // Counter animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('.counter');
+            
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                const duration = 2000;
+                const increment = target / (duration / 16);
+                let current = 0;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        counter.textContent = target.toLocaleString() + '+';
+                        clearInterval(timer);
+                    } else {
+                        counter.textContent = Math.floor(current).toLocaleString();
+                    }
+                }, 16);
+            });
+        }
+        
+        // Start counter animation when visible
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    observer.disconnect();
+                }
+            });
+        });
+        
+        const statsSection = document.querySelector('.counter');
+        if (statsSection) {
+            observer.observe(statsSection.parentElement);
+        }
+
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            easing: 'ease-out-cubic',
+            once: true,
+            offset: 100,
+            delay: 100
+        });
+
+        // Firebase imports
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getDatabase, ref, set, onValue, push, serverTimestamp, runTransaction, query, orderByChild, equalTo } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js";
@@ -112,9 +1674,16 @@
         // --- Utility Functions ---
         function showModal(content) {
             const container = document.getElementById('modal-container');
-            container.innerHTML = `<div class="modal fixed w-full h-full top-0 left-0 flex items-center justify-center z-50 bg-slate-900/50 backdrop-blur-sm">${content}</div>`;
-            container.querySelector('.modal').addEventListener('click', (e) => {
-                if (e.target.classList.contains('modal-close') || e.target.classList.contains('modal')) {
+            container.innerHTML = `
+                <div class="modal fade show" style="display: block; background: rgba(0,0,0,0.7);" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        ${content}
+                    </div>
+                </div>`;
+            
+            const modal = container.querySelector('.modal');
+            modal.addEventListener('click', (e) => {
+                if (e.target.classList.contains('modal') || e.target.classList.contains('modal-close')) {
                     container.innerHTML = '';
                 }
             });
@@ -122,23 +1691,38 @@
 
         function showToast(message, isError = false) {
             const container = document.getElementById('toast-container');
-            const toast = document.createElement('div');
-            toast.className = `px-4 py-2 rounded-lg shadow-lg text-white ${isError ? 'bg-red-500' : 'bg-green-500'}`;
-            toast.textContent = message;
-            container.appendChild(toast);
-            setTimeout(() => toast.remove(), 3000);
+            const toastId = 'toast-' + Date.now();
+            const toastHtml = `
+                <div id="${toastId}" class="toast toast-custom ${isError ? 'toast-error' : 'toast-success'}" role="alert">
+                    <div class="toast-header border-0">
+                        <i class="fas ${isError ? 'fa-exclamation-circle text-danger' : 'fa-check-circle text-success'} me-2"></i>
+                        <strong class="me-auto">${isError ? 'Error' : 'Success'}</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+                    </div>
+                    <div class="toast-body">${message}</div>
+                </div>`;
+            
+            container.insertAdjacentHTML('beforeend', toastHtml);
+            const toastElement = document.getElementById(toastId);
+            const toast = new bootstrap.Toast(toastElement, { delay: 4000 });
+            toast.show();
+            
+            toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
         }
 
         // --- Page Navigation ---
-        document.getElementById('sidebar-nav').addEventListener('click', (e) => {
-            e.preventDefault();
-            const link = e.target.closest('a');
+        document.addEventListener('click', (e) => {
+            const link = e.target.closest('.page-link');
             if (!link) return;
-            document.querySelectorAll('#sidebar-nav a').forEach(a => a.classList.remove('active'));
+            
+            e.preventDefault();
+            document.querySelectorAll('.page-link').forEach(a => a.classList.remove('active'));
             link.classList.add('active');
+            
             const pageId = link.getAttribute('href').substring(1) + '-page';
             document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
-            document.getElementById(pageId)?.classList.add('active');
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) targetPage.classList.add('active');
         });
 
         // --- Firebase Data Listeners (Public) ---
@@ -148,31 +1732,83 @@
             const servicesTableBody = document.getElementById('services-table-body');
             const landingContainer = document.getElementById('landing-services-container');
             
-            serviceSelect.innerHTML = '<option value="">Select a service</option>';
-            servicesTableBody.innerHTML = '';
-            landingContainer.innerHTML = '';
+            if (serviceSelect) {
+                serviceSelect.innerHTML = '<option value="">Choose a service...</option>';
+                for(const serviceId in allServicesData) {
+                    const service = allServicesData[serviceId];
+                    serviceSelect.innerHTML += `<option value="${serviceId}">${service.name} ($${service.price}/1000)</option>`;
+                }
+            }
             
-            for(const serviceId in allServicesData) {
-                const service = allServicesData[serviceId];
-                serviceSelect.innerHTML += `<option value="${serviceId}">${service.name} ($${service.price}/1000)</option>`;
-                servicesTableBody.innerHTML += `<tr class="text-gray-700"><td class="p-3">${serviceId}</td><td class="p-3">${service.name}</td><td class="p-3 font-medium">$${parseFloat(service.price).toFixed(3)}</td></tr>`;
-                landingContainer.innerHTML += `<div class="service-card p-6 rounded-lg"><i class="fas fa-thumbs-up text-blue-500 text-3xl mb-4"></i><h3 class="text-xl font-bold mb-2">${service.name}</h3><p class="text-slate-400">Starting at $${parseFloat(service.price).toFixed(3)} per 1000</p></div>`;
+            if (servicesTableBody) {
+                servicesTableBody.innerHTML = '';
+                for(const serviceId in allServicesData) {
+                    const service = allServicesData[serviceId];
+                    servicesTableBody.innerHTML += `
+                        <tr>
+                            <td class="fw-bold">${serviceId}</td>
+                            <td>${service.name}</td>
+                            <td class="text-success fw-bold">$${parseFloat(service.price).toFixed(3)}</td>
+                            <td>${service.min || 100}</td>
+                            <td>${service.max || 10000}</td>
+                        </tr>`;
+                }
+            }
+            
+            if (landingContainer) {
+                landingContainer.innerHTML = '';
+                let serviceCount = 0;
+                for(const serviceId in allServicesData) {
+                    if (serviceCount >= 6) break; // Show only 6 services on landing
+                    const service = allServicesData[serviceId];
+                    landingContainer.innerHTML += `
+                        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="${100 + serviceCount * 100}">
+                            <div class="service-card text-center">
+                                <div class="service-icon mx-auto">
+                                    <i class="fab fa-${getServiceIcon(service.name)}"></i>
+                                </div>
+                                <h4 class="fw-bold mb-3">${service.name}</h4>
+                                <p class="text-muted mb-3">High quality service with fast delivery</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="text-success fw-bold">$${parseFloat(service.price).toFixed(3)}/1k</span>
+                                    <span class="badge bg-primary">Popular</span>
+                                </div>
+                            </div>
+                        </div>`;
+                    serviceCount++;
+                }
             }
         });
         
+        function getServiceIcon(serviceName) {
+            const name = serviceName.toLowerCase();
+            if (name.includes('instagram')) return 'instagram';
+            if (name.includes('facebook')) return 'facebook';
+            if (name.includes('youtube')) return 'youtube';
+            if (name.includes('tiktok')) return 'tiktok';
+            if (name.includes('twitter')) return 'twitter';
+            if (name.includes('linkedin')) return 'linkedin';
+            return 'thumbs-up';
+        }
+        
         onValue(ref(db, 'settings/dollarRate'), (snapshot) => {
             dollarRate = snapshot.val() || 110;
-            document.getElementById('dollar-rate').textContent = dollarRate;
-            document.getElementById('usd-amount').dispatchEvent(new Event('input'));
+            const rateElement = document.getElementById('dollar-rate');
+            if (rateElement) {
+                rateElement.textContent = dollarRate;
+                const usdInput = document.getElementById('usd-amount');
+                if (usdInput) usdInput.dispatchEvent(new Event('input'));
+            }
         });
 
         // --- Auth State and User Data Listeners ---
         onAuthStateChanged(auth, user => {
             if (user) {
-                document.getElementById('dashboard-page').classList.remove('hidden');
-                document.getElementById('landing-page').classList.add('hidden');
-                document.getElementById('guest-menu').classList.add('hidden');
-                document.getElementById('user-menu').classList.remove('hidden');
+                document.getElementById('dashboard-page').classList.remove('d-none');
+                document.getElementById('landing-page').classList.add('d-none');
+                document.getElementById('guest-menu').classList.add('d-none');
+                document.getElementById('user-menu').classList.remove('d-none');
+                document.getElementById('user-menu').classList.add('d-flex');
                 document.getElementById('user-display-name').textContent = user.displayName || user.email;
 
                 // User data listener
@@ -186,66 +1822,135 @@
                 const ordersQuery = query(ref(db, 'orders'), orderByChild('userId'), equalTo(user.uid));
                 onValue(ordersQuery, (snapshot) => {
                     const ordersTableBody = document.getElementById('orders-table-body');
-                    ordersTableBody.innerHTML = '';
-                    const orders = snapshot.val() || {};
-                    const sortedOrders = Object.values(orders).sort((a,b) => b.timestamp - a.timestamp);
-                    sortedOrders.forEach(order => {
-                        ordersTableBody.innerHTML += `<tr class="text-gray-700">
-                            <td class="p-3">${new Date(order.timestamp).toLocaleDateString()}</td>
-                            <td class="p-3">${order.serviceName}</td><td class="p-3">${order.link}</td>
-                            <td class="p-3">$${order.charge.toFixed(2)}</td>
-                            <td class="p-3"><span class="status-badge status-badge-${order.status}">${order.status}</span></td>
-                        </tr>`;
-                    });
+                    if (ordersTableBody) {
+                        ordersTableBody.innerHTML = '';
+                        const orders = snapshot.val() || {};
+                        const sortedOrders = Object.values(orders).sort((a,b) => b.timestamp - a.timestamp);
+                        
+                        if (sortedOrders.length === 0) {
+                            ordersTableBody.innerHTML = '<tr><td colspan="6" class="text-center text-muted py-4">No orders found</td></tr>';
+                        } else {
+                            sortedOrders.forEach(order => {
+                                ordersTableBody.innerHTML += `
+                                    <tr>
+                                        <td>${new Date(order.timestamp).toLocaleDateString()}</td>
+                                        <td>${order.serviceName}</td>
+                                        <td><a href="${order.link}" target="_blank" class="text-primary text-decoration-none">${order.link.substring(0, 30)}...</a></td>
+                                        <td class="fw-bold">${order.quantity || 'N/A'}</td>
+                                        <td class="text-success fw-bold">$${order.charge.toFixed(2)}</td>
+                                        <td><span class="status-badge status-badge-${order.status.toLowerCase()}">${order.status}</span></td>
+                                    </tr>`;
+                            });
+                        }
+                    }
                 });
                 
                 // Tickets listener
                 const ticketsQuery = query(ref(db, 'tickets'), orderByChild('userId'), equalTo(user.uid));
                 onValue(ticketsQuery, (snapshot) => {
                     const ticketsList = document.getElementById('tickets-list');
-                    ticketsList.innerHTML = '';
-                    const tickets = snapshot.val() || {};
-                     const sortedTickets = Object.values(tickets).sort((a,b) => b.createdAt - a.createdAt);
-                    sortedTickets.forEach(ticket => {
-                        ticketsList.innerHTML += `<div class="border p-4 rounded-md bg-slate-50 text-gray-800">
-                            <p class="font-bold">${ticket.subject} <span class="text-sm font-normal text-gray-500 float-right status-badge status-badge-${ticket.status}">${ticket.status}</span></p>
-                            <p class="text-gray-600 mt-2">${Object.values(ticket.replies)[0].message}</p>
-                        </div>`;
-                    });
+                    if (ticketsList) {
+                        ticketsList.innerHTML = '';
+                        const tickets = snapshot.val() || {};
+                        const sortedTickets = Object.values(tickets).sort((a,b) => b.createdAt - a.createdAt);
+                        
+                        if (sortedTickets.length === 0) {
+                            ticketsList.innerHTML = '<div class="text-center text-muted py-4">No tickets found</div>';
+                        } else {
+                            sortedTickets.forEach(ticket => {
+                                const firstReply = Object.values(ticket.replies || {})[0] || { message: 'No message' };
+                                ticketsList.innerHTML += `
+                                    <div class="card border-0" style="background: rgba(255,255,255,0.05); border-radius: 15px;">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                                <h6 class="fw-bold mb-0">${ticket.subject}</h6>
+                                                <span class="status-badge status-badge-${ticket.status.toLowerCase()}">${ticket.status}</span>
+                                            </div>
+                                            <p class="text-muted small mb-0">${firstReply.message.substring(0, 100)}...</p>
+                                            <small class="text-muted">${new Date(ticket.createdAt).toLocaleDateString()}</small>
+                                        </div>
+                                    </div>`;
+                            });
+                        }
+                    }
                 });
 
             } else {
-                document.getElementById('dashboard-page').classList.add('hidden');
-                document.getElementById('landing-page').classList.remove('hidden');
-                document.getElementById('guest-menu').classList.remove('hidden');
-                document.getElementById('user-menu').classList.add('hidden');
+                document.getElementById('dashboard-page').classList.add('d-none');
+                document.getElementById('landing-page').classList.remove('d-none');
+                document.getElementById('guest-menu').classList.remove('d-none');
+                document.getElementById('user-menu').classList.add('d-none');
             }
         });
 
         // --- Auth Modals ---
         function createAuthModal(isSignIn) {
             const content = `
-                <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded-lg shadow-lg z-50 text-gray-800">
-                    <div class="py-6 px-8"><div class="flex justify-between items-center pb-3"><p class="text-2xl font-bold">${isSignIn ? 'Sign In' : 'Sign Up'}</p><button class="modal-close cursor-pointer text-2xl">&times;</button></div>
-                        <form id="authForm" class="space-y-4 pt-4">
-                            ${!isSignIn ? `<div><label class="block text-sm font-medium">Username</label><input type="text" id="name" class="mt-1 w-full p-3 rounded-md form-input" required></div>` : ''}
-                            <div><label class="block text-sm font-medium">Email</label><input type="email" id="email" class="mt-1 w-full p-3 rounded-md form-input" required></div>
-                            <div><label class="block text-sm font-medium">Password</label><input type="password" id="password" class="mt-1 w-full p-3 rounded-md form-input" required></div>
-                            <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 rounded-md highlight-button">${isSignIn ? 'Sign In' : 'Sign Up'}</button>
+                <div class="modal-content modal-content-custom">
+                    <div class="modal-header modal-header-custom">
+                        <h5 class="modal-title fw-bold">
+                            <i class="fas ${isSignIn ? 'fa-sign-in-alt' : 'fa-user-plus'} me-2"></i>
+                            ${isSignIn ? 'Welcome Back!' : 'Create Account'}
+                        </h5>
+                        <button type="button" class="btn-close btn-close-white modal-close"></button>
+                    </div>
+                    <div class="modal-body p-4">
+                        <form id="authForm" class="row g-3">
+                            ${!isSignIn ? `
+                                <div class="col-12">
+                                    <label class="form-label form-label-custom">
+                                        <i class="fas fa-user me-2"></i>Full Name
+                                    </label>
+                                    <input type="text" id="name" class="form-control form-control-custom" 
+                                           placeholder="Enter your full name" required>
+                                </div>` : ''}
+                            <div class="col-12">
+                                <label class="form-label form-label-custom">
+                                    <i class="fas fa-envelope me-2"></i>Email Address
+                                </label>
+                                <input type="email" id="email" class="form-control form-control-custom" 
+                                       placeholder="Enter your email" required>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label form-label-custom">
+                                    <i class="fas fa-lock me-2"></i>Password
+                                </label>
+                                <input type="password" id="password" class="form-control form-control-custom" 
+                                       placeholder="Enter your password" required>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary-custom w-100 btn-lg">
+                                    <i class="fas ${isSignIn ? 'fa-sign-in-alt' : 'fa-user-plus'} me-2"></i>
+                                    ${isSignIn ? 'Sign In' : 'Create Account'}
+                                </button>
+                            </div>
                         </form>
-                        <p class="mt-4 text-center text-sm">${isSignIn ? "Don't have an account?" : 'Already have an account?'} <button id="switchAuth" class="text-blue-600 hover:underline">${isSignIn ? 'Sign Up' : 'Sign In'}</button></p>
+                        <div class="text-center mt-4">
+                            <p class="text-muted mb-0">
+                                ${isSignIn ? "Don't have an account?" : 'Already have an account?'}
+                                <button id="switchAuth" class="btn btn-link text-primary p-0 ms-1">
+                                    ${isSignIn ? 'Sign Up' : 'Sign In'}
+                                </button>
+                            </p>
+                        </div>
                     </div>
                 </div>`;
             showModal(content);
-            document.getElementById('switchAuth').addEventListener('click', () => createAuthModal(!isSignIn));
-            document.getElementById('authForm').addEventListener('submit', handleAuthSubmit);
+            document.getElementById('switchAuth')?.addEventListener('click', () => createAuthModal(!isSignIn));
+            document.getElementById('authForm')?.addEventListener('submit', handleAuthSubmit);
         }
         
         async function handleAuthSubmit(e) {
             e.preventDefault();
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<span class="loading-spinner me-2"></span>Processing...';
+            submitBtn.disabled = true;
+            
             const isSignIn = !e.target.querySelector('#name');
             const email = e.target.querySelector('#email').value;
             const password = e.target.querySelector('#password').value;
+            
             try {
                 if (isSignIn) {
                     await signInWithEmailAndPassword(auth, email, password);
@@ -253,46 +1958,83 @@
                     const name = e.target.querySelector('#name').value;
                     const cred = await createUserWithEmailAndPassword(auth, email, password);
                     await updateProfile(cred.user, { displayName: name });
-                    await set(ref(db, `users/${cred.user.uid}`), { name, email, balance: 0, spent: 0, createdAt: serverTimestamp() });
+                    await set(ref(db, `users/${cred.user.uid}`), { 
+                        name, email, balance: 0, spent: 0, createdAt: serverTimestamp() 
+                    });
                     await runTransaction(ref(db, 'stats/totalUsers'), (count) => (count || 0) + 1);
                 }
                 showToast(`Successfully ${isSignIn ? 'signed in' : 'signed up'}!`);
                 document.getElementById('modal-container').innerHTML = '';
-            } catch (error) { showToast(error.message, true); }
+            } catch (error) { 
+                showToast(error.message, true);
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
         }
 
+        // Event Listeners
         ['signInBtn', 'signUpBtn', 'getStartedBtn'].forEach(id => {
-            document.getElementById(id).addEventListener('click', () => createAuthModal(id === 'signInBtn'));
+            const element = document.getElementById(id);
+            if (element) {
+                element.addEventListener('click', () => createAuthModal(id === 'signInBtn'));
+            }
         });
-        signOutBtn.addEventListener('click', () => signOut(auth));
+        
+        document.getElementById('signOutBtn')?.addEventListener('click', async () => {
+            try {
+                await signOut(auth);
+                showToast('Successfully signed out!');
+            } catch (error) {
+                showToast(error.message, true);
+            }
+        });
 
         // --- Dashboard Form Handlers ---
-        document.getElementById('service-select').addEventListener('change', updateOrderCharge);
-        document.getElementById('order-quantity').addEventListener('input', updateOrderCharge);
-
         function updateOrderCharge() {
-            const service = allServicesData[document.getElementById('service-select').value];
-            const quantity = parseFloat(document.getElementById('order-quantity').value) || 0;
+            const serviceSelect = document.getElementById('service-select');
+            const quantityInput = document.getElementById('order-quantity');
+            const chargeDisplay = document.getElementById('order-charge');
+            
+            if (!serviceSelect || !quantityInput || !chargeDisplay) return;
+            
+            const service = allServicesData[serviceSelect.value];
+            const quantity = parseFloat(quantityInput.value) || 0;
             const charge = service ? (service.price / 1000) * quantity : 0;
-            document.getElementById('order-charge').textContent = `$${charge.toFixed(3)}`;
+            chargeDisplay.textContent = `$${charge.toFixed(3)}`;
         }
 
-        document.getElementById('order-form').addEventListener('submit', async (e) => {
+        document.getElementById('service-select')?.addEventListener('change', updateOrderCharge);
+        document.getElementById('order-quantity')?.addEventListener('input', updateOrderCharge);
+
+        document.getElementById('order-form')?.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const user = auth.currentUser; if (!user) return;
+            const user = auth.currentUser;
+            if (!user) return showToast('Please sign in first.', true);
+            
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<span class="loading-spinner me-2"></span>Processing...';
+            submitBtn.disabled = true;
+            
             const serviceId = document.getElementById('service-select').value;
             const quantity = parseInt(document.getElementById('order-quantity').value);
             const link = document.getElementById('order-link').value;
             const service = allServicesData[serviceId];
-            if (!service || !quantity || !link) return showToast('Please fill out all fields.', true);
+            
+            if (!service || !quantity || !link) {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                return showToast('Please fill out all fields.', true);
+            }
             
             const charge = (service.price / 1000) * quantity;
             const userRef = ref(db, `users/${user.uid}`);
+            
             try {
                 await runTransaction(userRef, (userData) => {
                     if (userData) {
                         if ((userData.balance || 0) < charge) {
-                            throw new Error("Insufficient funds.");
+                            throw new Error("Insufficient funds. Please add funds to your account.");
                         }
                         userData.balance -= charge;
                         userData.spent = (userData.spent || 0) + charge;
@@ -302,64 +2044,145 @@
                 
                 const newOrderRef = push(ref(db, "orders"));
                 await set(newOrderRef, {
-                    userId: user.uid, userEmail: user.email, serviceId, serviceName: service.name,
-                    link, quantity, charge, status: 'Pending', timestamp: serverTimestamp()
+                    userId: user.uid, 
+                    userEmail: user.email, 
+                    serviceId, 
+                    serviceName: service.name,
+                    link, 
+                    quantity, 
+                    charge, 
+                    status: 'Pending', 
+                    timestamp: serverTimestamp()
                 });
+                
                 await runTransaction(ref(db, 'stats/totalOrders'), (count) => (count || 0) + 1);
                 
                 showToast('Order placed successfully!');
                 e.target.reset();
-            } catch (error) { showToast(error.message, true); }
+                updateOrderCharge();
+            } catch (error) { 
+                showToast(error.message, true);
+            } finally {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
         });
 
-        // Add Funds
-        const paymentNumbers = { 'Bkash': '01767882562', 'Rocket': '01767882562', 'Nagad': '01767882562' };
-        document.getElementById('usd-amount').addEventListener('input', (e) => {
+        // Add Funds Form
+        const paymentNumbers = {
+            'Bkash': '01767882562',
+            'Rocket': '01767882562', 
+            'Nagad': '01767882562'
+        };
+        
+        document.getElementById('usd-amount')?.addEventListener('input', (e) => {
             const usd = parseFloat(e.target.value) || 0;
-            document.getElementById('bdt-amount').textContent = (usd * dollarRate).toFixed(2) + ' BDT';
+            const bdtElement = document.getElementById('bdt-amount');
+            if (bdtElement) {
+                bdtElement.textContent = (usd * dollarRate).toFixed(2) + ' BDT';
+            }
         });
-        document.getElementById('payment-method').addEventListener('change', (e) => {
+        
+        document.getElementById('payment-method')?.addEventListener('change', (e) => {
             const number = paymentNumbers[e.target.value];
             const display = document.getElementById('payment-number-display');
-            document.getElementById('payment-number').textContent = number;
-            display.classList.toggle('hidden', !number);
+            const numberElement = document.getElementById('payment-number');
+            
+            if (display && numberElement) {
+                numberElement.textContent = number;
+                display.classList.toggle('d-none', !number);
+            }
         });
 
-        document.getElementById('add-funds-form').addEventListener('submit', async (e) => {
+        document.getElementById('add-funds-form')?.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const user = auth.currentUser; if (!user) return;
+            const user = auth.currentUser;
+            if (!user) return showToast('Please sign in first.', true);
+            
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<span class="loading-spinner me-2"></span>Processing...';
+            submitBtn.disabled = true;
+            
             const newRequest = {
-                userId: user.uid, userEmail: user.email,
+                userId: user.uid,
+                userEmail: user.email,
                 method: document.getElementById('payment-method').value,
                 amount: parseFloat(document.getElementById('usd-amount').value),
                 transactionId: document.getElementById('transaction-id').value,
-                status: 'Pending', timestamp: serverTimestamp()
+                status: 'Pending',
+                timestamp: serverTimestamp()
             };
-            if(!newRequest.amount || !newRequest.transactionId) return showToast("Please fill all fields.", true);
-            await push(ref(db, "fundRequests"), newRequest);
-            showToast('Fund request submitted for review.');
-            e.target.reset();
+            
+            if (!newRequest.amount || !newRequest.transactionId) {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                return showToast("Please fill all fields.", true);
+            }
+            
+            try {
+                await push(ref(db, "fundRequests"), newRequest);
+                showToast('Fund request submitted for review.');
+                e.target.reset();
+                document.getElementById('payment-number-display')?.classList.add('d-none');
+            } catch (error) {
+                showToast(error.message, true);
+            } finally {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
         });
 
-        // Create Ticket
-        document.getElementById('create-ticket-form').addEventListener('submit', async (e) => {
+        // Create Ticket Form
+        document.getElementById('create-ticket-form')?.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const user = auth.currentUser; if (!user) return;
+            const user = auth.currentUser;
+            if (!user) return showToast('Please sign in first.', true);
+            
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<span class="loading-spinner me-2"></span>Creating...';
+            submitBtn.disabled = true;
+            
             const subject = document.getElementById('ticket-subject').value;
             const message = document.getElementById('ticket-message').value;
-            if(!subject || !message) return showToast("Please fill all fields.", true);
-
-            const newTicketRef = push(ref(db, "tickets"));
-            const firstReplyRef = push(ref(db, `tickets/${newTicketRef.key}/replies`));
-
-            await set(newTicketRef, {
-                userId: user.uid, userEmail: user.email, subject, status: 'Open', createdAt: serverTimestamp()
-            });
-            await set(firstReplyRef, { sender: 'user', message, timestamp: serverTimestamp() });
             
-            showToast('Ticket created successfully.');
-            e.target.reset();
+            if (!subject || !message) {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                return showToast("Please fill all fields.", true);
+            }
+
+            try {
+                const newTicketRef = push(ref(db, "tickets"));
+                const firstReplyRef = push(ref(db, `tickets/${newTicketRef.key}/replies`));
+
+                await set(newTicketRef, {
+                    userId: user.uid,
+                    userEmail: user.email,
+                    subject,
+                    status: 'Open',
+                    createdAt: serverTimestamp()
+                });
+                
+                await set(firstReplyRef, {
+                    sender: 'user',
+                    message,
+                    timestamp: serverTimestamp()
+                });
+                
+                showToast('Ticket created successfully.');
+                e.target.reset();
+            } catch (error) {
+                showToast(error.message, true);
+            } finally {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
         });
+        
+        // Initialize payment method display
+        document.getElementById('payment-method')?.dispatchEvent(new Event('change'));
     </script>
 </body>
 </html>
